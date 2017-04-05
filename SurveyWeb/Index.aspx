@@ -43,7 +43,7 @@
       <br>
       <div class="jumbotron">
         <h1>欢迎回来</h1>
-        <p><%=username %> <span class="label label-success">管理员</span></p>
+        <p><%=username %> <span class="label label-success"><%=privilege_str %></span></p>
 
         <p>您上次登陆的时间为：<%=login_time%></p>
         <p>您上次登陆的IP为：<%=ip %></p>

@@ -22,7 +22,14 @@ public partial class Index : System.Web.UI.Page
         username = (string)Session["username"];
         LoginLog login_log = LoginLogService.getUserLastLoginLog((int)Session["id"]);
 
-        if(intSession[])
+        if ((int)Session["privilege"] == 1) {
+            privilege_str = "超级管理员";
+        }
+        else
+        {
+            privilege_str = "普通管理员";
+        }
+
 
         if (login_log != null)
         {

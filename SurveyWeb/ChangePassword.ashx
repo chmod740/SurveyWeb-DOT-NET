@@ -16,8 +16,16 @@ public class ChangePassword : IHttpHandler, System.Web.SessionState.IRequiresSes
         }
         string oldPass = context.Request["old_pass"];
         string newPass = context.Request["new_pass"];
-        bool result = UserService.doLogin(username, oldPass);
+        
         string s = null;
+        if(string.IsNullOrEmpty(oldPass) || string.IsNullOrEmpty(newPass)){
+            s = getResult(0, "输入参数错误，密码修改失败");
+            context.Response.Write(s);
+            return;
+        }
+        
+        bool result = UserService.doLogin(username, oldPass);
+        
         if (result)
         {
             User user = UserService.getUserByUserName(username);
@@ -26,7 +34,7 @@ public class ChangePassword : IHttpHandler, System.Web.SessionState.IRequiresSes
             s = getResult(0, "密码修改成功");
         }
         else {
-            s = getResult(0, "密码修改失败");
+            s = getResult(0, "旧密码错误，密码修改失败");
         }
         context.Response.Write(s);
     }
@@ -36,11 +44,11 @@ public class ChangePassword : IHttpHandler, System.Web.SessionState.IRequiresSes
             return false;
         }
     }
-    
-    private string getResult(int code, string msg) 
+
+    private string getResult(int code, string msg)
     {
         string json = "";
-        json = "{\"code\":" + code + ",\"msg\":\""+ msg + "\"}";
+        json = "{\"code\":" + code + ",\"msg\":\"" + msg + "\"}";
         return json;
     }
 }
