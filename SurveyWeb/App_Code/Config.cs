@@ -8,9 +8,10 @@ using System.Web;
 /// </summary>
 public class Config
 {
-    public static string sqlUrl = "Database='survey';Data Source=localhost;User ID=root;Password=;CharSet=utf8;";
-
-	public Config()
+    public static string sqlUrl = "Database='survey_web';Data Source=localhost;User ID=root;Password=;CharSet=utf8;";
+    public static string adminEmail = "hupeng@imudges.com";
+	
+    public Config()
 	{
 		//
 		//TODO: 在此处添加构造函数逻辑

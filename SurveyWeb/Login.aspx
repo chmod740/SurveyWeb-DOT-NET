@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Responsive Nav &middot; Advanced Left Navigation Demo</title>
+    <title>二维码投票系统</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="dist/css/vendor/bootstrap.min.css" rel="stylesheet">
     <link href="dist/css/flat-ui.css" rel="stylesheet">
@@ -23,7 +23,7 @@
     <form action=Login.aspx runat="server" id="login_form">
         <div class="login-form">
             <div class="form-group">
-                <a>乌拉特前旗干部考核系统</a>
+                <a>二维码投票系统</a>
             </div>
             <div class="form-group">
                 <input type="text" class="form-control login-field" value="" placeholder="请输入用户名" id="username" runat="server" >
@@ -36,7 +36,7 @@
             </div>
 
             <asp:Button ID="btnLogin" runat="server" Text="登录" class="btn btn-primary btn-lg btn-block" onclick="login" /> 
-            <a class="login-link" href="#">忘记了你的密码？</a>
+            <a class="login-link" href="javascript:forget_password()">忘记了你的密码？</a>
         </div>
     </form>
 </div>
@@ -45,6 +45,13 @@
 <script src="dist/js/vendor/video.js"></script>
 <script src="dist/js/flat-ui.min.js"></script>
 <script src="docs/assets/js/application.js"></script>
-
+<script type"text/javascript"> 
+    <%=msg %>
+</script>
+<script type="text/javascript">
+    function forget_password() {
+        alert("请联系管理员解决\n邮箱：<%=admin_email %>");
+    }
+</script>
 </body>
 </html>

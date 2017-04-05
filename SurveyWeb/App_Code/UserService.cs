@@ -58,6 +58,7 @@ public class UserService
             user.id = sdr.GetInt32("id");
             user.username = sdr.GetString("username");
             user.password = sdr.GetString("password");
+            user.privilege = sdr.GetInt32("privilege");
         }
         sdr.Close();
         comm.Clone();
@@ -83,6 +84,7 @@ public class UserService
             user.id = sdr.GetInt32("id");
             user.username = sdr.GetString("username");
             user.password = sdr.GetString("password");
+            user.privilege = sdr.GetInt32("privilege");
         }
         sdr.Close();
         comm.Clone();
@@ -90,4 +92,19 @@ public class UserService
         return user;
     }
 
+    public static bool updateUser(User user)
+    {
+        MySqlConnection conn = new MySqlConnection(Config.sqlUrl);
+        conn.Open();
+        String sql = "update user set username=@username,password=@password,privilege=@privilege where id=@id";
+        MySqlCommand comm = new MySqlCommand(sql, conn);
+        comm.Parameters.Add("id", user.id);
+        comm.Parameters.Add("username", user.username);
+        comm.Parameters.Add("password", user.password);
+        comm.Parameters.Add("privilege", user.privilege);
+        comm.ExecuteNonQuery();
+        comm.Clone();
+        conn.Close();
+        return true; 
+    }
 }

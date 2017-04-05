@@ -4,21 +4,19 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-///User 的摘要说明
+///LoginLog 的摘要说明
 /// </summary>
-public class User
+public class LoginLog
 {
     public int id;
-    public string username;
-    public string password;
-    public int privilege;
+    public int user_id;
+    public string ip;
+    public DateTime time;
 
-	public User()
+    public LoginLog()
 	{
 		//
 		//TODO: 在此处添加构造函数逻辑
 		//
-        
 	}
-
 }
