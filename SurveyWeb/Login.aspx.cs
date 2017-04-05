@@ -18,30 +18,13 @@ public partial class Login : System.Web.UI.Page
     {
 
 
-        if (username.Value.Equals("admin") || password.Value.Equals("123"))
+        if (UserService.doLogin(username.Value,password.Value))
         {
-            Response.Redirect("http://www.baidu.com");
-        }
-    }
 
-    private void doLogin(string username , string password) 
-    {
-        MySqlConnection conn = new MySqlConnection(Config.sqlUrl);
-        conn.Open();
-        String sql = "select * from user where username=@username and password=@password;";
-        MySqlCommand comm = new MySqlCommand(sql, conn);
-        comm.Parameters.Add("username", username);
-        comm.Parameters.Add("password", password);
 
-        MySqlDataReader sdr = comm.ExecuteReader();
-        if (sdr.Read())
-        {
-            Session["us"]
+            Session["username"] = username.Value;
+            Session["password"] = password.Value;
         }
-        else 
-        {
- 
-        }
-        conn.Close();
+
     }
 }

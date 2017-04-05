@@ -11,23 +11,83 @@ public class UserService
 {
 	public UserService()
 	{
-		//
-		//TODO: 在此处添加构造函数逻辑
-		//
+        
 	}
 
 
-    public bool login(string username,string password)
-    { 
+    public static bool doLogin(string username,string password)
+    {
         MySqlConnection conn = new MySqlConnection(Config.sqlUrl);
         conn.Open();
-        string sql = "select * from user where username=@username and password=@password;";
+        String sql = "select * from user where username=@username and password=@password;";
         MySqlCommand comm = new MySqlCommand(sql, conn);
         comm.Parameters.Add("username", username);
         comm.Parameters.Add("password", password);
 
         MySqlDataReader sdr = comm.ExecuteReader();
+        bool flag = false;
+        if (sdr.Read())
+        {
+            flag = true;
+        }
+        else
+        {
+            flag = false;
+        }
+        sdr.Close();
+        comm.Clone();
         conn.Close();
-        return false;
+        return flag;
     }
+
+    public static User getUserById(int id) 
+    {
+
+        MySqlConnection conn = new MySqlConnection(Config.sqlUrl);
+        conn.Open();
+        String sql = "select * from user where id=@id";
+        MySqlCommand comm = new MySqlCommand(sql, conn);
+        comm.Parameters.Add("id", id);
+
+        MySqlDataReader sdr = comm.ExecuteReader();
+        bool flag = false;
+        User user = null;
+        if (sdr.Read())
+        {
+            user = new User();
+            user.id = sdr.GetInt32("id");
+            user.username = sdr.GetString("username");
+            user.password = sdr.GetString("password");
+        }
+        sdr.Close();
+        comm.Clone();
+        conn.Close();
+        return user;
+    }
+
+    public static User getUserByUserName(string username)
+    {
+
+        MySqlConnection conn = new MySqlConnection(Config.sqlUrl);
+        conn.Open();
+        String sql = "select * from user where username=@username";
+        MySqlCommand comm = new MySqlCommand(sql, conn);
+        comm.Parameters.Add("username", username);
+
+        MySqlDataReader sdr = comm.ExecuteReader();
+        bool flag = false;
+        User user = null;
+        if (sdr.Read())
+        {
+            user = new User();
+            user.id = sdr.GetInt32("id");
+            user.username = sdr.GetString("username");
+            user.password = sdr.GetString("password");
+        }
+        sdr.Close();
+        comm.Clone();
+        conn.Close();
+        return user;
+    }
+
 }
