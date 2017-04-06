@@ -31,7 +31,7 @@
       <ul>
         <li class="active"><a href="Index.aspx">主页</a></li>
         <li><a href="manageFrom.html">考核管理</a></li>
-        <li><a href="addFrom.html">添加考核</a></li>
+        <li><a href="addSurvey.aspx">添加考核</a></li>
         <li><a href="#">Blog</a></li>
       </ul>
     </div>
@@ -59,8 +59,6 @@
         var navigation = responsiveNav("foo", { customToggle: ".nav-toggle" });
     </script>
 
-
-
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
@@ -70,15 +68,46 @@
             <h4 class="modal-title" id="myModalLabel">修改密码</h4>
           </div>
           <div class="modal-body">
-            ...
+            <p class="modal-title">旧密码</p>
+            <input class="modal-title" type="password" name="old_pass" id="old_pass"/><br>
+            <p class="modal-title">新密码</p>
+            <input class="modal-title" type="password" name="new_pass" id="new_pass"/><br>
+            <p class="modal-title">确认新密码</p>
+            <input class="modal-title" type="password" name="new_pass2" id="new_pass2"/><br>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary">保存</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="change_password()">修改</button>
           </div>
         </div>
       </div>
     </div>
 
+    <script type="text/javascript">
+        function change_password() {
+            var oldPass = document.getElementById("old_pass");
+            var newPass = document.getElementById("new_pass");
+            var newPass2 = document.getElementById("new_pass2");
+            if (!(new_pass.value == new_pass2.value)) {
+                alert("两次输入的新密码不一致");
+                return;
+            }
+            $.ajax({
+                url: 'ChangePassword.ashx?old_pass=' + old_pass.value + '&new_pass=' + new_pass.value,
+                type: 'GET',
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (returndata) {
+                    var json = eval("(" + returndata + ")");
+                    alert(json.msg);
+                },
+                error: function (returndata) {
+                    alert('服务器错误，密码修改失败');
+                }
+            });
+        }
+    </script>
   </body>
 </html>
