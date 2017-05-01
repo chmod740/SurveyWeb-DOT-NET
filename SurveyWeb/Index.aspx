@@ -30,9 +30,9 @@
     <div role="navigation" id="foo" class="nav-collapse">
       <ul>
         <li class="active"><a href="Index.aspx">主页</a></li>
-        <li><a href="manageFrom.html">考核管理</a></li>
+        <li><a href="manageFrom.aspx">考核管理</a></li>
         <li><a href="addSurvey.aspx">添加考核</a></li>
-        <li><a href="#">Blog</a></li>
+        <li><a href="about.aspx">关于系统</a></li>
       </ul>
     </div>
 
@@ -104,7 +104,7 @@
                     alert(json.msg);
                 },
                 error: function (returndata) {
-                    alert('服务器错误，密码修改失败');
+                    alert('网络请求发生异常，密码修改失败');
                 }
             });
         }
