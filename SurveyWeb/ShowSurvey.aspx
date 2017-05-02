@@ -33,18 +33,27 @@
   <body>
    <h3>${survey.theme }</h3>
     <ol type="1" class="inner">
+    <%if (survey == null)
+      { %>
+    <h1>您已经参加过此投票或者此投票不存在</h1>
+    <%}
+      else
+      {%>
+
     <form id="question" method="post" action="submitSurvey.action">
-  	<%for(int i=0;i<list.size();i++){ %>
-  		<%ShowModel showModel = list.get(i); %>
+  	<%foreach(Question question in survey.questions)
+     { %>
+  		
 	
       <li style="margin-bottom: 40px; background:#eeeeee; padding: 20px;">
           <ol type="A" class="inner">
-            <h5><%=showModel.getQuestion().getTitle() %></h5>
-            <%for(int j=0;j<showModel.getOptList().size();j++){ %>
+            <h5><%=question.title%></h5>
+            <%foreach(Option option in question.options)
+              { %>
             <li>
               <label class="checkbox">
-                <input type="checkbox" name="id" value="<%=showModel.getOptList().get(j).getOptionId() %>" data-toggle="checkbox" class="custom-checkbox">
-                <p><%=showModel.getOptList().get(j).getText() %></p>
+                <input type="checkbox" name="id" value="<%=option.id %>" data-toggle="checkbox" class="custom-checkbox">
+                <p><%=option.text%></p>
               </label>
             </li>
             <%} %>
@@ -53,6 +62,7 @@
     
 	<%} %>
 	</form>
+    <%} %>
       </ol>
     <button onclick="$('#question').submit()">提交</button>
     <script src="dist/js/vendor/video.js"></script>

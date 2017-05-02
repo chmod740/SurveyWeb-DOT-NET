@@ -322,6 +322,44 @@ public class SurveyService
         }
     }
 
+
+    public static Survey getSurveyByKey(string key)
+    {
+        try
+        {
+  
+            MySqlConnection conn = new MySqlConnection(Config.sqlUrl);
+            conn.Open();
+            String sql = "select * from array where code=@key and status = 1s";
+            MySqlCommand comm = new MySqlCommand(sql, conn);
+            comm.Parameters.Add("key", key);
+
+            MySqlDataReader sdr = comm.ExecuteReader();
+
+            if (sdr.Read())
+            {
+
+                int id = sdr.GetInt32("survey_id");
+                
+                return getSurveyById(id);
+            }
+            else
+            {
+                return null;
+            }
+            sdr.Close();
+            comm.Clone();
+            conn.Close();
+
+
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+
+
     public static List<Survey> getAllSurvey()
     {
         try
