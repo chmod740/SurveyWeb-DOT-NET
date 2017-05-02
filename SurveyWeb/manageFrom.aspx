@@ -42,26 +42,28 @@
     <div role="main" class="main">
       <a href="#nav" class="nav-toggle">Menu</a>
       <br><br>
-
+      <div class="row">
       <%foreach (Survey survey in list){ %>
 
-      <div class="row">
-        <div class="col-sm-6 col-md-4">
+      
+        <div class="col-sm-6 col-md-6">
+
           <div class="thumbnail">
             <!-- <img src="..." alt="..."> -->
             <div class="caption">
               <h3><%=survey.theme %></h3>
-              <br>
+
               <p></p>
               <p>
                 <a href="fromDetail.aspx?id=<%=survey.id %>" class="btn btn-primary" role="button">查看结果</a> 
-                <a href="DownloadQrCode.aspx?id=<%=survey.id %>" class="btn btn-primary" role="button">下载二维码</a> 
-                <a href="#" class="btn btn-default" role="button" data-toggle="modal" data-target="#myModal">删除此项目</a>
+                <a href="DownloadQrCode.aspx?id=<%=survey.id %>" class="btn btn-primary" role="button">生成二维码</a> 
+                <a href="#" class="btn btn-default" role="button" data-toggle="modal" data-target="#myModal_<%=survey.id %>">删除此项目</a>
               </p>
             </div>
           </div>
+
         </div>
-		<%} %>>
+		<%} %>
 		
 
 
@@ -70,38 +72,8 @@
 
 
 
-        <div class="col-sm-6 col-md-4">
-          <div class="thumbnail">
-            <img src="..." alt="...">
-            <div class="caption">
-              <h3>Thumbnail label</h3>
-              <p>...</p>
-              <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-md-4">
-          <div class="thumbnail">
-            <img src="..." alt="...">
-            <div class="caption">
-              <h3>Thumbnail label</h3>
-              <p>...</p>
-              <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-md-4">
-          <div class="thumbnail">
-            <img src="..." alt="...">
-            <div class="caption">
-              <h3>Thumbnail label</h3>
-              <p>...</p>
-              <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-            </div>
-          </div>
-        </div>
+        
+        
 
       </div>
 
@@ -110,7 +82,8 @@
 
 
 	<!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <%foreach (Survey survey in list){ %>
+    <div class="modal fade" id="myModal_<%=survey.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -118,7 +91,7 @@
             <h4 class="modal-title" id="myModalLabel">删除此项目</h4>
           </div>
           <div class="modal-body">
-            <p>您确认要删除此投票项目吗？注意！此操作无法撤销！</p>
+            <p>您确认要删除“<%=survey.theme %>”投票项目吗？注意！此操作无法撤销！</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -127,7 +100,7 @@
         </div>
       </div>
     </div>
-
+    <%} %>
 
 
     <script>

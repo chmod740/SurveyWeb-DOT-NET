@@ -92,13 +92,15 @@ public class SurveyService
         {
             MySqlConnection conn = new MySqlConnection(Config.sqlUrl);
             conn.Open();
-            String sql = "insert into opt (question_id,text,click) values (@question_id,@text,@click)";
+            String sql = "insert into opt (question_id,text,click) values (@question_id,@text,0)";
             MySqlCommand comm = new MySqlCommand(sql, conn);
 
             comm.Parameters.Add("question_id", question_id);
             comm.Parameters.Add("text", text);
-            comm.Parameters.Add("click", 0);
+
+
             comm.ExecuteNonQuery();
+            
             sql = "select * from opt order by id desc";
             comm = new MySqlCommand(sql, conn);
 
