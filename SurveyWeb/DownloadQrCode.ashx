@@ -11,7 +11,18 @@ using ThoughtWorks.QRCode.ExceptionHandler;
 public class DownloadQrCode : IHttpHandler {
     
     public void ProcessRequest (HttpContext context) {
-
+        try
+        {
+            if(System.IO.File.Exists(context.Server.MapPath(@"~\") + "qr.zip"))
+            {
+                System.IO.File.Delete(context.Server.MapPath(@"~\") + "qr.zip");
+            }
+        }
+        catch (Exception e) {
+            
+        }
+        
+        
         int id = int.Parse(context.Request.Params["id"]);
         int count = int.Parse(context.Request.Params["count"]);
 
@@ -27,12 +38,20 @@ public class DownloadQrCode : IHttpHandler {
 
         ZipHelper.CreateZip(context.Server.MapPath(@"~\Upload" + id), context.Server.MapPath(@"~\") + "qr.zip");
         //createCode(context.Server, 0, "abc");
+        try
+        {
+            System.IO.DirectoryInfo subdir = new System.IO.DirectoryInfo(context.Server.MapPath(@"~\Upload" + id));
+            subdir.Delete(true);          //删除子目录和文件
+        }
+        catch (Exception e) 
+        {
+             
+        }
         
         
-        
-        context.Response.ContentType = "text/plain";
-        context.Response.Write("Hello World");
-        
+        //context.Response.ContentType = "text/plain";
+        //context.Response.Write("Hello World");
+        doResponse(context);
         
     }
     
@@ -67,4 +86,33 @@ public class DownloadQrCode : IHttpHandler {
         image.Dispose();
 
     }
+
+
+
+
+
+    public void doResponse(HttpContext context)
+    {
+
+        string RealFile = context.Server.MapPath(@"~\") + "qr.zip";//真实存在的文件
+        if (!System.IO.File.Exists(RealFile))
+        {
+            context.Response.Write("服务器上该文件已被删除或不存在！"); return;
+        }
+        context.Response.Buffer = true;
+        context.Response.Clear();
+        context.Response.ContentType = "application/download";
+        string downFile = System.IO.Path.GetFileName("qr.zip");//这里也可以随便取名
+        string EncodeFileName = HttpUtility.UrlEncode(downFile, System.Text.Encoding.UTF8);//防止中文出现乱码
+        context.Response.AddHeader("Content-Disposition", "attachment;filename=" + EncodeFileName + ";");
+        context.Response.BinaryWrite(System.IO.File.ReadAllBytes(RealFile));//返回文件数据给客户端下载
+        context.Response.Flush();
+        context.Response.End();
+    }
+    
+    
+    
+    
+    
+    
 }

@@ -56,7 +56,7 @@
               <p></p>
               <p>
                 <a href="fromDetail.aspx?id=<%=survey.id %>" class="btn btn-primary" role="button">查看结果</a> 
-                <a href="DownloadQrCode.aspx?id=<%=survey.id %>" class="btn btn-primary" role="button">生成二维码</a> 
+                <a href="#" class="btn btn-primary" role="button" data-toggle="modal" data-target="#Modal_<%=survey.id %>">生成二维码</a> 
                 <a href="#" class="btn btn-default" role="button" data-toggle="modal" data-target="#myModal_<%=survey.id %>">删除此项目</a>
               </p>
             </div>
@@ -95,7 +95,27 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary">删除</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.href='DeleteSurvey.ashx?id=<%=survey.id %>'">删除</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="Modal_<%=survey.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">生成二维码</h4>
+          </div>
+          <div class="modal-body">
+            <p>请输入您要生成的二维码的数量！</p>
+            <input  id="input_<%=survey.id %>"/>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="gen_code(<%=survey.id %>,<%=survey.id %>)">生成</button>
           </div>
         </div>
       </div>
@@ -105,6 +125,12 @@
 
     <script>
         var navigation = responsiveNav("foo", { customToggle: ".nav-toggle" });
+
+        function gen_code(input_id, id) {
+            var count = document.getElementById("input_" + input_id).value;
+            window.location.href = "DownloadQrCode.ashx?id=" + id + "&count=" + count + "";
+
+        }
     </script>
   </body>
 </html>
