@@ -330,7 +330,7 @@ public class SurveyService
   
             MySqlConnection conn = new MySqlConnection(Config.sqlUrl);
             conn.Open();
-            String sql = "select * from array where code=@key and status = 1s";
+            String sql = "select * from array where code=@key and status = 1";
             MySqlCommand comm = new MySqlCommand(sql, conn);
             comm.Parameters.Add("key", key);
 

@@ -55,18 +55,4 @@ public class addSurvey : IHttpHandler {
         return SurveyService.addOption(questionId,title);
     }
     
-    private string solveData(string data) {
-
-        Regex reg = new Regex("#$#^[1-9]\\d*$#f######\\$#");
-        string resultString = "";
-        Match match = reg.Match(data);
-        while(reg.IsMatch(data)){
-            resultString = match.ToString();
-            break;
-        }
-        if(resultString.Length == 0){
-            return data;
-        }
-        return data.Replace(resultString, "");
-    }
 }
