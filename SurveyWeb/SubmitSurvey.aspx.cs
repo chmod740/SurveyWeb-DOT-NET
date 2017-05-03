@@ -5,14 +5,12 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class ShowSurvey : System.Web.UI.Page
+public partial class SubmitSurvey : System.Web.UI.Page
 {
     public Survey survey;
-    public string code;
     protected void Page_Load(object sender, EventArgs e)
     {
-        String key = Request.Params["key"];
-        survey = SurveyService.getSurveyByKey(key);
-        this.code = key;
+        string code = Request.Params["code"];
+        survey = SurveyService.getSurveyByKey(code);
     }
 }

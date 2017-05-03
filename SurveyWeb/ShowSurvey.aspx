@@ -66,7 +66,8 @@
                 else
                 {%>
 
-            <form id="question" method="post" action="submitSurvey.action">
+            <form id="question" method="post" action="SubmitSurvey.aspx">
+                <input type="hidden" name="code" value="<%=code %>"/>
                 <%foreach (var question in survey.questions)
                     { %>
                 <input type="hidden" id="q_<%=question.id %>" value="0"/>

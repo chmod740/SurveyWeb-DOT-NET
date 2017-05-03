@@ -429,5 +429,74 @@ public class SurveyService
             s += str.Substring(r.Next(0, str.Length - 1), 1);
         }
         return s;
-    } 
+    }
+
+    public static void useArrayByCode(string code)
+    {
+
+        try
+        {
+            MySqlConnection conn = new MySqlConnection(Config.sqlUrl);
+            conn.Open();
+            String sql = "update array set status = 0 where code = @code";
+            MySqlCommand comm = new MySqlCommand(sql, conn);
+            comm.Parameters.Add("code", code);
+            comm.ExecuteNonQuery();
+            comm.Clone();
+            conn.Close();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+
+    public static int getClickByOptionId(int id)
+    {
+        try
+        {
+
+            MySqlConnection conn = new MySqlConnection(Config.sqlUrl);
+            conn.Open();
+            String sql = "select * from opt where id = @id";
+            MySqlCommand comm = new MySqlCommand(sql, conn);
+            MySqlDataReader sdr = comm.ExecuteReader();
+            int click = -1;
+            if (sdr.Read())
+            {
+                click = sdr.GetInt32("click");
+            }
+
+            sdr.Close();
+            comm.Clone();
+            conn.Close();
+            return click;
+
+        }
+        catch (Exception e)
+        {
+            return -1;
+        }
+    }
+
+    public static void updateClickByOptionId(int id,int click)
+    {
+        try
+        {
+            MySqlConnection conn = new MySqlConnection(Config.sqlUrl);
+            conn.Open();
+            String sql = "update opt set click = @click where id = @id";
+            MySqlCommand comm = new MySqlCommand(sql, conn);
+            comm.Parameters.Add("id", id);
+            comm.Parameters.Add("click",click);
+            comm.ExecuteNonQuery();
+            comm.Clone();
+            conn.Close();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+
 }
