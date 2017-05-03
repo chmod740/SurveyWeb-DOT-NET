@@ -20,6 +20,7 @@ public partial class fromDetail : System.Web.UI.Page
 
         int id = int.Parse(Request.Params["id"]);
         survey = SurveyService.getSurveyById(id);
+        Console.WriteLine("hello");
 
     }
 }

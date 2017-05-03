@@ -95,7 +95,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.href='DeleteSurvey.ashx?id=<%=survey.id %>'">删除</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.href='DeleteSurvey.aspx?id=<%=survey.id %>'">删除</button>
           </div>
         </div>
       </div>

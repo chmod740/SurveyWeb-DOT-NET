@@ -83,7 +83,7 @@
         %>
 
         <div class="progress">
-          <div class="progress-bar <%=style %>" role="progressbar" aria-valuenow="<%=(int)(option.click*100.0 / question.click_count)  %>" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+          <div class="progress-bar <%=style %>" role="progressbar" aria-valuenow="<%=(int)(option.click*100.0 / question.click_count)  %>" aria-valuemin="0" aria-valuemax="100" style="width: <%=(int)(option.click*100.0 / question.click_count)  %>%">
             <%=option.text %><span class="sr-only"><%=(int)(option.click*100.0 / question.click_count)  %>% Complete (success)</span>
           </div>
         </div>

@@ -460,6 +460,7 @@ public class SurveyService
             conn.Open();
             String sql = "select * from opt where id = @id";
             MySqlCommand comm = new MySqlCommand(sql, conn);
+            comm.Parameters.Add("id", id);
             MySqlDataReader sdr = comm.ExecuteReader();
             int click = -1;
             if (sdr.Read())
@@ -499,4 +500,21 @@ public class SurveyService
         }
     }
 
+    public static void deleteSurveyById(int id) {
+        try
+        {
+            MySqlConnection conn = new MySqlConnection(Config.sqlUrl);
+            conn.Open();
+            String sql = "delete from survey   where id = @id";
+            MySqlCommand comm = new MySqlCommand(sql, conn);
+            comm.Parameters.Add("id", id);
+            comm.ExecuteNonQuery();
+            comm.Clone();
+            conn.Close();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
 }
